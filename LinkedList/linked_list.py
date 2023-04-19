@@ -59,4 +59,67 @@ class LinkedList:
     def erase(self, position):
         if self.head:
             current_node = self.head
+            if position == 0:
+                self.head = current_node.next
+                current_node = None
+                return
+            
+            previous = None
+            count = 0
+            while current_node and count != position:
+                previous = current_node
+                current_node = current_node.next
+                count += 1
 
+            if current_node is None:
+                return
+            
+            previous.next = current_node.next
+            current_node = None
+
+    def size(self):
+        count = 0
+        current_node = self.head
+        while current_node:
+            count += 1
+            current_node = current_node.next
+        return count
+    
+    def size_recursive(self, node):
+        if node is None:
+            return 0
+        return 1 + self.size_recursive(node.next)
+    
+    def swap(self, key1, key2):
+        if key1 == key2:
+            return
+        
+        previous1 = None
+        current1 = self.head
+        while current1 and current1.data != key1:
+            previous1 = current1
+            current1 = current1.next
+            
+        previous2 = None
+        current2 = self.head
+        while current2 and current2.data != key2:
+            previous2 = current2
+            current2 = current2.next
+        
+        if not current1 or not current2:
+            return
+        
+        if previous1:
+            previous1.next = current2
+        else:
+            self.head = current2
+            
+        if previous2:
+            previous2.next = current1
+        else:
+            self.head = current1
+        
+        current1.next, current2.next = current2.next, current1.next
+            
+
+        
