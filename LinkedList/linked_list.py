@@ -120,6 +120,29 @@ class LinkedList:
             self.head = current1
         
         current1.next, current2.next = current2.next, current1.next
-            
-
         
+    def reverse(self):
+        previous = None
+        current = self.head
+        while current:
+            nxt = current.next
+            current.next = previous
+            previous = current
+            current = nxt
+        self.head = previous
+        
+    def reverse_recursive(self):
+        def _reverse_recursive(current, previous):
+            if not current:
+                return previous
+            
+            nxt = current.next
+            current.next = previous
+            previous = current
+            current = nxt
+            return _reverse_recursive(current, previous)
+        
+        self.head = _reverse_recursive(current=self.head, previous=None)
+            
+            
+            
